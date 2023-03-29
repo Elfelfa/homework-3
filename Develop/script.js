@@ -1,6 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
 // Indexes:
 // 0-9: Numbers (10 total indexes)
 // 10-35: Lowercase letters (26 total indexes)
@@ -13,7 +14,8 @@ const characters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 
                   'Y', 'Z', ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',
                   '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_',
                   '`', '{', '|', '}', '~'];
-
+                  
+                  
 // Write password to the #password input
 function writePassword() 
 {
