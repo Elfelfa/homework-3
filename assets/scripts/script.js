@@ -14,11 +14,17 @@ const characters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 
                   '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_',
                   '`', '{', '|', '}', '~'];
 
+
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
 // Write password to the #password input
 function writePassword() 
 {
   var numChars = 0;
-  var num, lower, upper, special;
+  var num, lower, upper, special = null;
+  var password = "";
 
   //Request a number from the user between 8-128. Loop the request if the entry is not valid.
   while (true)
@@ -63,20 +69,19 @@ function writePassword()
   var passwordText = document.querySelector("#password");
 
   //Replaces the placeholder text on the page with the new password.
+  passwordText.value = "";
   passwordText.value = password;
 
 }
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 //c is an int (number of characters)
 //n, l, u, s are booleans.
 function generatePassword(c, n, l, u, s)
 {
   //Creating an editable copy of all possible characters for the new password
-  var selectedCharacters = characters;
-  newPassword = '';
+  var selectedCharacters = [];
+  selectedCharacters = selectedCharacters.concat(characters);
+  newPassword = "";
 
   //These if statements will remove characters that the user does not want from the array
   if (!s)
