@@ -1,6 +1,9 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
 // Indexes:
 // 0-9: Numbers (10 total indexes)
 // 10-35: Lowercase letters (26 total indexes)
@@ -15,17 +18,28 @@ const characters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 
                   '`', '{', '|', '}', '~'];
 
 
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+var numChars = 0;
+var num, lower, upper, special = null;
 
 // Write password to the #password input
 function writePassword() 
 {
-  var numChars = 0;
-  var num, lower, upper, special = null;
   var password = "";
 
+  numChars = 0;
+  num, lower, upper, special = null;
+
+  //Generate a password using the user's input values
+  gatherData();
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  //Replaces the placeholder text on the page with the new password.
+  passwordText.value = password;
+}
+
+function gatherData()
+{
   //Request a number from the user between 8-128. Loop the request if the entry is not valid.
   while (true)
   {
@@ -55,8 +69,20 @@ function writePassword()
     upper = confirm("Would you like to include uppercase letters in your new password?");
     special = confirm("Would you like to include special characters in your new password?");
 
+    var temp = [num, lower, upper, special];
+    var atLeastOne = false;
+
+    for (const obj in temp)
+    {
+      if (temp[obj] === true)
+      {
+        
+        atLeastOne = true;
+      }
+    }
+    
     //If the user said no to everything, redo the request stating that the user must pick at least one.
-    if ((true in {num, lower, upper, special}) === false)
+    if (atLeastOne == true)
     {
       break;
     }
@@ -64,47 +90,41 @@ function writePassword()
     alert("You must pick at least one!");
   }
 
-  //Generate a password using the user's input values
-  var password = generatePassword(numChars, num, lower, upper, special);
-  var passwordText = document.querySelector("#password");
-
-  //Replaces the placeholder text on the page with the new password.
-  passwordText.value = "";
-  passwordText.value = password;
-
+  return;
 }
 
 //c is an int (number of characters)
 //n, l, u, s are booleans.
-function generatePassword(c, n, l, u, s)
+function generatePassword()
 {
+  var newPassword = "";
+
   //Creating an editable copy of all possible characters for the new password
   var selectedCharacters = [];
   selectedCharacters = selectedCharacters.concat(characters);
-  newPassword = "";
 
   //These if statements will remove characters that the user does not want from the array
-  if (!s)
+  if (!special)
   {
     selectedCharacters.splice(62, 33);
   }
 
-  if (!u)
+  if (!upper)
   {
     selectedCharacters.splice(36, 26);
   }
 
-  if(!l)
+  if(!lower)
   {
     selectedCharacters.splice(10, 26);
   }
 
-  if(!n)
+  if(!num)
   {
     selectedCharacters.splice(0, 10);
   }
 
-  for (c; c > 0; c--)
+  for (numChars; numChars > 0; numChars--)
   {
     newPassword += selectedCharacters[Math.floor(Math.random() * selectedCharacters.length)];
   }
